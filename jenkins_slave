@@ -1,1 +1,18 @@
-# your Home work
+<!-- # your Home work -->
+pipeline {
+    agent any
+
+    parameters {
+        string(name: 'NAME', defaultValue: 'pavarisa', description: 'Enter your name')
+        string(name: 'AGE', defaultValue:'21', description: 'your age')
+    }
+
+    stages {
+        stage('print something') {
+            steps {
+                echo "Name: ${params.NAME} Age: ${params.AGE}"
+                sh "python myscript.py ${params.NAME} --age ${params.AGE}"
+            }
+        }
+    }
+}

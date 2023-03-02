@@ -1,6 +1,6 @@
 pipeline {
     agent any
-
+    
     stages {
         
         stage('Welcome to master'){
@@ -11,8 +11,22 @@ pipeline {
 
         stage('Tigger the Slave Jobs') {
             steps {
-                echo 'Start Trigger to send name and age to slave edit msg again add change'
-                // build job: 'slave', parameters: [string(name: 'NAME', value: 'Alice'), string(name: 'Ages', value: '21')]
+                echo 'Read JSON file'
+                script {
+                    try{
+                        def data = readJSON file: "${env.WORKSPACE}/data.json"
+                        name = "${data.name}"
+                        age = "${data.age}"
+                        echo name
+                        echo age
+                        echo 'Start Trigger to send name and age to slave try'
+                        build job: 'slave', parameters: [string(name: 'NAME', value: "$name"), string(name: 'AGE', value: "$age")]
+                    }
+                    catch (err){
+                        echo err.toString()
+                    }
+                }
+                
             }
         }
     }
