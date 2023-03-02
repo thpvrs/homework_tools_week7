@@ -11,7 +11,7 @@ pipeline {
 
         stage('Tigger the Slave Jobs') {
             steps {
-                echo 'Start Trigger to send name and age to slave edit msg'
+                echo 'Start Trigger to send name and age to slave edit msg 2'
                 // build job: 'slave', parameters: [string(name: 'NAME', value: 'Alice'), string(name: 'Ages', value: '21')]
             }
         }
